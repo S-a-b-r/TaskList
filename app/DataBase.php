@@ -15,7 +15,7 @@ class DataBase
         $this->db = null;
     }
 
-    public function getUserByLogin(string $login): array
+    public function getUserByLogin(string $login)
     {
         $sql = "SELECT * FROM `users` WHERE login=?";
         $statement = $this->db->prepare($sql);
@@ -23,7 +23,7 @@ class DataBase
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function authorizationUser(string $login, string $password): array
+    public function authorizationUser(string $login, string $password)
     {
         $sql = "SELECT * FROM `users` WHERE login=? AND password=?";
         $statement = $this->db->prepare($sql);
@@ -47,12 +47,12 @@ class DataBase
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function addTask(int $user_id, string $description): array
+    public function addTask(int $user_id, string $description): bool
     {
         $sql = "INSERT INTO `tasks` (user_id, description, created_at) VALUES (?, ?, NOW())";
         $statement = $this->db->prepare($sql);
         $statement->execute([$user_id, $description]);
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return true;
     }
 
     public function removeTask(int $task_id): bool

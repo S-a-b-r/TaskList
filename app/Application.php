@@ -66,7 +66,9 @@ class Application
     //Получение всех заданий авторизованного пользователя
     public function getTasks()
     {
-        $_SESSION['tasks'] = $this->db->getTasks($_SESSION['user_id']);
+        if(!empty($_SESSION['user_id'])){
+            $_SESSION['tasks'] = $this->db->getTasks($_SESSION['user_id']);
+        }
     }
 
     public function addTask(array $params)
