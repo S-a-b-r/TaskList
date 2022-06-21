@@ -1,14 +1,6 @@
 <?php
-    error_reporting(E_ALL & ~E_NOTICE);
+    //error_reporting(E_ALL & ~E_NOTICE);
     require_once('Application.php');
-
-    if($_GET){
-        router($_GET);
-    } elseif($_POST){
-        router($_POST);
-    } else{
-        return false;
-    }
 
     function router($params){
         $action = $params['action'];
@@ -17,17 +9,20 @@
             switch ($action){
                 //users
                 case 'login': $app->login($params); break;
-                case 'logout': return $app->logout();
+                case 'logout': $app->logout(); break;
 
                 //tasks
-                case 'add_task': return $app->addTask($params);
-                case 'remove_all': return $app->removeAll();
-                case 'ready_all': return $app->readyAll();
-                case 'ready_task': return $app->readyTask($params);
-                case 'unready_task': return $app->unreadyTask($params);
-                case 'delete_task': return $app->deleteTask($params);
+                case 'add_task': $app->addTask($params); break;
+                case 'remove_all': $app->removeAllTasks(); break;
+                case 'ready_all': $app->readyAllTasks(); break;
+                case 'ready_task': $app->readyTask($params); break;
+                case 'unready_task': $app->unreadyTask($params); break;
+                case 'delete_task': $app->removeTask($params); break;
             }
         }
-        return false;
+        echo 'Ошибка роутинга';
     }
+
+    router($_POST);
+
 

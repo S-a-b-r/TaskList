@@ -1,11 +1,11 @@
 <?php
-if(!isset($_SESSION)){
-    session_start();
-}
+    if(!isset($_SESSION)){
+        session_start();
+    }
 
-if(!isset($_SESSION['user'])){
-    header('Location: /registration.php');
-}
+    if(!isset($_SESSION['user'])){
+        header('Location: /registration.php');
+    }
 
 ?>
 <!doctype html>
@@ -25,9 +25,9 @@ if(!isset($_SESSION['user'])){
 ?>
 
 <div class="container">
-    <form action="" method="post" class="form col-8">
+    <form action="app/main.php" method="post" class="form col-8">
         <div class="d-flex">
-            <input class="input-text form-control" placeholder="Enter text..." name="text" type="text">
+            <input class="input-text form-control" placeholder="Enter text..." name="description" type="text">
             <button class="btn btn-outline-primary col-2 mx-2" type="submit" name="action" value="add_task">Add task</button>
         </div>
 
@@ -35,27 +35,27 @@ if(!isset($_SESSION['user'])){
             <button class="btn btn-outline-success" type="submit" name="action" value="ready_all">Ready all</button>
             <button class="btn btn-outline-danger" type="submit" name="action" value="remove_all">Remove all</button>
         </div>
-        <h2 class="mt-3">Tasks:</h2>
-        <div class="card mt-4" style="border: 1px solid green">
-            <input type='hidden' name='id_task' value=".$key.">
+    </form>
+
+    <h2 class="mt-3">Tasks:</h2>
+    <?php
+        foreach($_SESSION['tasks'] as $task){
+    ?>
+    <form action="app/main.php" method="post">
+        <div class="card mt-4" style="border: 1px solid <?php echo $task['status']==1?'green':'red'?>">
+            <input type='hidden' name='task_id' value="<?php echo $task['id']?>">
             <div class="card-body">
-                <p class="card-text">Task text</p>
-                <button class='btn btn-outline-success' name='action' value='ready_task'>Ready</button>
-                <button class='btn btn-outline-warning' name='action' value='unready_task' hidden>Unready</button>
-                <button class='btn btn-outline-danger' name='action' value='delete_task'>Delete</button>
-            </div>
-        </div>
-        <div class="card mt-4" style="border: 1px solid red">
-            <input type='hidden' name='id_task' value=".$key.">
-            <div class="card-body">
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <button class='btn btn-outline-success' name='action' value='ready_task'>Ready</button>
-                <button class='btn btn-outline-warning' name='action' value='unready_task' hidden>Unready</button>
+                <p class="card-text"><?php echo htmlspecialchars($task['description'])?></p>
+                <button class='btn btn-outline-success' name='action' value='ready_task' <?php echo $task['status']==1?'hidden':''?> >Ready</button>
+                <button class='btn btn-outline-warning' name='action' value='unready_task' <?php echo $task['status']==0?'hidden':'' ?>>Unready</button>
                 <button class='btn btn-outline-danger' name='action' value='delete_task'>Delete</button>
             </div>
         </div>
     </form>
+
+    <?php
+        }
+    ?>
 </div>
-</body>
 </body>
 </html>

@@ -9,8 +9,8 @@ DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE `tasks` (
                          `id` int(11) NOT NULL AUTO_INCREMENT,
                          `user_id` int(11) NOT NULL,
-                         `description` int(11) NOT NULL,
-                         `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+                         `description` varchar(255) NOT NULL,
+                         `created_at` datetime NOT NULL,
                          `status` tinyint(4) NOT NULL DEFAULT 0,
                          PRIMARY KEY (`id`),
                          KEY `user_id` (`user_id`),
@@ -23,9 +23,9 @@ CREATE TABLE `users` (
                          `id` int(11) NOT NULL AUTO_INCREMENT,
                          `login` varchar(30) NOT NULL,
                          `password` varchar(50) NOT NULL,
-                         `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+                         `created_at` datetime NOT NULL,
                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2022-06-20 14:42:13
+-- 2022-06-21 14:25:09
