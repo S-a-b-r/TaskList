@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -27,7 +28,6 @@
             </form>
         </div>
         <?php
-        session_start();
         if(isset($_SESSION['error'])){ ?>
             <div class="alert alert-danger mt-3" role="alert">
                 <?php  echo $_SESSION['error']?>

@@ -83,7 +83,7 @@ class Application
     public function removeTask(array $params)
     {
         if(!empty($params['task_id'])){
-            $this->db->removeTask($params['task_id']);
+            $this->db->removeTask($params['task_id'], $_SESSION['user_id']);
             $this->redirect('/index.php');
         }
         echo('Ошибка удаления задания');
@@ -104,7 +104,7 @@ class Application
     public function readyTask(array $params)
     {
         if(!empty($params['task_id'])){
-            $this->db->changeStatusTask($params['task_id'], self::READY_STATUS);
+            $this->db->changeStatusTask($params['task_id'], $_SESSION['user_id'], self::READY_STATUS);
             $this->redirect('/index.php');
         }
         echo('Ошибка выполнения задания');
@@ -113,7 +113,7 @@ class Application
     public function unreadyTask(array $params)
     {
         if(!empty($params['task_id'])){
-            $this->db->changeStatusTask($params['task_id'], self::UNREADY_STATUS);
+            $this->db->changeStatusTask($params['task_id'], $_SESSION['user_id'], self::UNREADY_STATUS);
             $this->redirect('/index.php');
         }
         echo('Ошибка выполнения задания');

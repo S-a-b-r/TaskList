@@ -55,11 +55,11 @@ class DataBase
         return true;
     }
 
-    public function removeTask(int $task_id): bool
+    public function removeTask(int $task_id, int $user_id): bool
     {
-        $sql = "DELETE FROM `tasks` WHERE id = ?";
+        $sql = "DELETE FROM `tasks` WHERE id = ? AND user_id = ?";
         $statement = $this->db->prepare($sql);
-        $statement->execute([$task_id]);
+        $statement->execute([$task_id, $user_id]);
         return true;
     }
 
@@ -79,11 +79,11 @@ class DataBase
         return true;
     }
 
-    public function changeStatusTask(int $task_id, int $status): bool
+    public function changeStatusTask(int $task_id, int $user_id, int $status): bool
     {
-        $sql = "UPDATE `tasks` SET status = ? where id = ?";
+        $sql = "UPDATE `tasks` SET status = ? WHERE id = ? AND user_id = ?";
         $statement = $this->db->prepare($sql);
-        $statement->execute([$status, $task_id]);
+        $statement->execute([$status, $task_id, $user_id]);
         return true;
     }
 
