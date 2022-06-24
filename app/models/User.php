@@ -1,5 +1,6 @@
 <?php
-require_once ('Model.php');
+
+require_once('Model.php');
 
 class User extends Model
 {
@@ -34,6 +35,6 @@ class User extends Model
     //Функция для шифрования пароля в БД
     public static function encryptPassword(string $password): string
     {
-        return md5($password . PASSWORD_KEY);
+        return md5($password.PASSWORD_KEY);
     }
 }
